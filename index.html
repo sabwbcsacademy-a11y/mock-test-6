@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mock Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f7f6;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+        }
+        .marking-info {
+            text-align: center;
+            font-size: 1.1em;
+            margin-bottom: 30px;
+            color: #555;
+            background: #eef2f3;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .question-block {
+            margin-bottom: 25px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        .question-text {
+            font-weight: bold;
+            font-size: 1.1em;
+            margin-bottom: 12px;
+        }
+        .options-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .option-label {
+            display: block;
+            padding: 10px 15px;
+            background: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .option-label:hover {
+            background: #f0f0f0;
+        }
+        .option-label input {
+            margin-right: 10px;
+        }
+        
+        /* Result styles dynamically injected via JS classes */
+        .option-label.correct-ans {
+            background-color: #d4edda !important;
+            border-color: #c3e6cb !important;
+            color: #155724 !important;
+            font-weight: bold;
+        }
+        .option-label.wrong-ans {
+            background-color: #f8d7da !important;
+            border-color: #f5c6cb !important;
+            color: #721c24 !important;
+        }
+
+        .btn-container {
+            text-align: center;
+            margin-top: 30px;
+        }
+        .submit-btn {
+            background-color: #27ae60;
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.2em;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+        .submit-btn:hover {
+            background-color: #219653;
+        }
+        .result-box {
+            display: none;
+            margin-top: 30px;
+            padding: 20px;
+            background: #e8f4fd;
+            border-left: 5px solid #3498db;
+            border-radius: 4px;
+        }
+        .result-title {
+            font-size: 1.5em;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #2c3e50;
+        }
+        .result-details {
+            font-size: 1.1em;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>অনলাইন মক টেস্ট</h1>
+    <div class="marking-info">
+        সঠিক উত্তরের জন্য: <strong>+1</strong> | ভুল উত্তরের জন্য: <strong>-0.25</strong>
+    </div>
+
+    <form id="quizForm">
+        <!-- Questions start here -->
+        <div class="question-block" data-qno="1" data-correct="A">
+            <div class="question-text">1. ভারতীয় সংবিধানের কোন অনুচ্ছেদে পঞ্চায়েত ব্যবস্থার সাংবিধানিক স্বীকৃতি দেওয়া হয়েছে?</div>
+            <div class="options-group">
+                <label class="option-label"><input type="radio" name="q1" value="A"> A) 243</label>
+                <label class="option-label"><input type="radio" name="q1" value="B"> B) 244</label>
+                <label class="option-label"><input type="radio" name="q1" value="C"> C) 245</label>
+                <label class="option-label"><input type="radio" name="q1" value="D"> D) 246</label>
+            </div>
+        </div>
+
+        <div class="question-block" data-qno="2" data-correct="B">
+            <div class="question-text">2. পশ্চিমবঙ্গে ত্রিস্তর পঞ্চায়েত ব্যবস্থা চালু হয়—</div>
+            <div class="options-group">
+                <label class="option-label"><input type="radio" name="q2" value="A"> A) 1973</label>
+                <label class="option-label"><input type="radio" name="q2" value="B"> B) 1978</label>
+                <label class="option-label"><input type="radio" name="q2" value="C"> C) 1993</label>
+                <label class="option-label"><input type="radio" name="q2" value="D"> D) 2000</label>
+            </div>
+        </div>
+
+        <div class="question-block" data-qno="3" data-correct="B">
+            <div class="question-text">3. গ্রাম পঞ্চায়েতের প্রধানকে কে নির্বাচিত করেন?</div>
+            <div class="options-group">
+                <label class="option-label"><input type="radio" name="q3" value="A"> A) জনগণ সরাসরি</label>
+                <label class="option-label"><input type="radio" name="q3" value="B"> B) পঞ্চায়েত সদস্যরা</label>
+                <label class="option-label"><input type="radio" name="q3" value="C"> C) BDO</label>
+                <label class="option-label"><input type="radio" name="q3" value="D"> D) জেলা শাসক</label>
+            </div>
+        </div>
+
+        <div class="question-block" data-qno="4" data-correct="B">
+            <div class="question-text">4. ৭৩তম সংবিধান সংশোধনী কার্যকর হয়—</div>
+            <div class="options-group">
+                <label class="option-label"><input type="radio" name="q4" value="A"> A) 1992</label>
+                <label class="option-label"><input type="radio" name="q4" value="B"> B) 1993</label>
+                <label class="option-label"><input type="radio" name="q4" value="C"> C) 1994</label>
+                <label class="option-label"><input type="radio" name="q4" value="D"> D) 1995</label>
+            </div>
+        </div>
+
+        <div class="question-block" data-qno="5" data-correct="C">
+            <div class="question-text">5. MGNREGA-তে বছরে কতদিনের কর্মসংস্থানের আইনি গ্যারান্টি রয়েছে?</div>
+            <div class="options-group">
+                <label class="option-label"><input type="radio" name="q5" value="A"> A) 50 দিন</label>
+                <label class="option-label"><input type="radio" name="q5" value="B"> B) 75 দিন</label>
+                <label class="option-label"><input type="radio" name="q5" value="C"> C) 100 দিন</label>
+                <label class="option-label"><input type="radio" name="q5" value="D"> D) 150 দিন</label>
+            </div>
+        </div>
+
+        <div class="question-block" data-qno="6" data-correct="B">
+            <div class="question-text">6. ভারতের প্রথম মহিলা রাষ্ট্রপতি কে ছিলেন?</div>
+            <div class="options-group">
+                <label class="option-label"><input type="radio" name="q6" value="A"> A) দ্রৌপদী মুর্মু</label>
+                <label class="option-label"><input type="radio" name="q6" value="B"> B) প্রতিভা পাটিল</label>
+                <label class="option-label"><input type="radio" name="q6" value="C"> C) সরোজিনী নাইডু</label>
+                <label class="option-label"><input type="radio" name="q6" value="D"> D) ইন্দিরা গান্ধী</label>
+            </div>
+        </div>
+
+        <div class="question-block" data-qno="7" data-correct="B">
+            <div class="question-text">7. ভারতীয় সংবিধানের কোন অংশে মৌলিক অধিকার রয়েছে?</div>
+            <div class="options-group">
+                <label class="option-label"><input type="radio" name="q7" value="A"> A) Part II</label>
+                <label class="option-label"><input type="radio" name="q7" value="B"> B) Part III</label>
+                <label class="option-label"><input type="radio" name="q7" value="C"> C) Part IV</label>
+                <label class="option-label"><input type="radio" name="q7" value="D"> D) Part V</label>
+            </div>
+        </div>
+
+        <div class="question-block" data-qno="8" data-correct="B">
+            <div class="question-text">8. ভারতের পরিকল্পনা কমিশনের পরিবর্তে কোন সংস্থা গঠিত হয়?</div>
+            <div class="options-group">
+                <label class="option-label"><input type="radio" name="q8" value="A"> A) UPSC</label>
+                <label class="option-label"><input type="radio" name="q8" value="B"> B) NITI Aayog</label>
+                <label class="option-label"><input type="radio" name="q8" value="C"> C) RBI</label>
+                <label class="option-label"><input type="radio" name="q8" value="D"> D) NABARD</label>
+            </div>
+        </div>
+
+        <div class="question-block" data-qno="9" data-correct="B">
+            <div class="question-text">9. ভারতের জাতীয় আয়ের হিসাব প্রকাশ করে—</div>
+            <div class="options-group">
+                <label class="option-label"><input type="radio" name="q9" value="A"> A) RBI</label>
+                <label class="option-label"><input type="radio" name="q9" value="B"> B) NSO</label>
+                <label class="option-label"><input type="radio" name="q9" value="C"> C) SEBI</label>
+                <label class="option-label"><input type="radio" name="q9" value="D"> D) NITI Aayog</label>
+            </div>
+        </div>
+
+        <div class="question-block" data-qno="10" data-correct="B">
+            <div class="question-text">10. RBI-এর সদর দপ্তর কোথায়?</div>
+            <div class="options-group">
+                <label class="option-label"><input type="radio" name="q10" value="A"> A) দিল্লি</label>
+                <label class="option-label"><input type="radio" name="q10" value="B"> B) মুম্বই</label>
+                <label class="option-label"><input type="radio" name="q10" value="C"> C) কলকাতা</label>
+                <label class="option-label"><input type="radio" name="q10" value="D"> D) চেন্নাই</label>
+            </div>
+        </div>
+
+        <div class="question-block" data-qno="11" data-correct="C">
+            <div class="question-text">11. ভারতীয় রেলের সদর দপ্তর কোথায়?</div>
+            <div class="options-group">
+                <label class="option-label"><input type="radio" name="q11" value="A"> A) কলকাতা</label>
+                <label class="option-label"><input type="radio" name="q11" value="B"> B) মুম্বই</label>
+                <label class="option-label"><input type="radio" name="q11" value="C"> C) নয়াদিল্লি</label>
+                <label class="option-label"><input type="radio" name="q11" value="D"> D) চেন্নাই</label>
+            </div>
+        </div>
+
+        <div class="question-block" data-qno="12" data-correct="B">
+            <div class="question-text">12. সুন্দরবন কোন নদীর বদ্বীপে অবস্থিত?</div>
+            <div class="options-group">
+                <label class="option-label"><input type="radio" name="q12" value="A"> A) গোদাবরী</label>
+                <label class="option-label"><input type="radio" name="q12" value="B"> B) গঙ্গা-ব্রহ্মপুত্র-মেঘনা</label>
+                <label class="option-label"><input type="radio" name="q12" value="C"> C) কৃষ্ণা</label>
+                <label class="option-label"><input type="radio" name="q12" value="D"> D) নর্মদা</label>
+            </div>
+        </div>
+
+        <div class="question-block" data-qno="13" data-correct="B">
+            <div class="question-text">13. ভারতের দীর্ঘতম বাঁধ কোনটি?</div>
+            <div class="options-group">
+                <label class="option-label"><input type="radio" name="q13" value="A"> A) ভাকরা</label>
+                <label class="option-label"><input type="radio" name="q13" value="B"> B) হিরাকুদ</label>
+                <label class="option-label"><input type="radio" name="q13" value="C"> C) টেহরি</label>
+                <label class="option-label"><input type="radio" name="q13" value="D"> D) সর্দার সরোবর</label>
+            </div>
+        </div>
+
+        <div class="question-block" data-qno="14" data-correct="C">
+            <div class="question-text">14. পৃথিবীর বৃহত্তম মহাসাগর—</div>
+            <div class="options-group">
+                <label class="option-label"><input type="radio" name="q14" value="A"> A) আটলান্টিক</label>
+                <label class="option-label"><input type="radio" name="q14" value="B"> B) ভারত মহাসাগর</label>
+                <label class="option-label"><input type="radio" name="q14" value="C"> C) প্রশান্ত মহাসাগর</label>
+                <label class="option-label"><input type="radio" name="q14" value="D"> D) আর্কটিক</label>
+            </div>
+        </div>
+
+        <div class="question-block" data-qno="15" data-correct="A">
+            <div class="question-text">15. DNA-এর পূর্ণরূপ—</div>
+            <div class="options-group">
+                <label class="option-label"><input type="radio" name="q15" value="A"> A) Deoxyribonucleic Acid</label>
+                <label class="option-label"><input type="radio" name="q15" value="B"> B) Dinitro Acid</label>
+                <label class="option-label"><input type="radio" name="q15" value="C"> C) Dual Nucleic Acid</label>
+                <label class="option-label"><input type="radio" name="q15" value="D"> D) None</label>
+            </div>
+        </div>
+
+        <div class="question-block" data-qno="16" data-correct="B">
+            <div class="question-text">16. মানুষের দেহে সবচেয়ে বড় গ্রন্থি—</div>
+            <div class="options-group">
+                <label class="option-label"><input type="radio" name="q16" value="A"> A) অগ্ন্যাশয়</label>
+                <label class="option-label"><input type="radio" name="q16" value="B"> B) যকৃত</label>
+                <label class="option-label"><input type="radio" name="q16" value="C"> C) থাইরয়েড</label>
+                <label class="option-label"><input type="radio" name="q16" value="D"> D) পিটুইটারি</label>
+            </div>
+        </div>
+
+        <div class="question-block" data-qno="17" data-correct="B">
+            <div class="question-text">17. ভিটামিন D-এর অভাবে হয়—</div>
+            <div class="options-group">
+                <label class="option-label"><input type="radio" name="q17" value="A"> A) স্কার্ভি</label>
+                <label class="option-label"><input type="radio" name="q17" value="B"> B) রিকেটস</label>
+                <label class="option-label"><input type="radio" name="q17" value="C"> C) বেরিবেরি</label>
+                <label class="option-label"><input type="radio" name="q17" value="D"> D) রাতকানা</label>
+            </div>
+        </div>
+
+        <div class="question-block" data-qno="18" data-correct="B">
+            <div class="question-text">18. ভারতের জাতীয় জলজ প্রাণী—</div>
+            <div class="options-group">
+                <label class="option-label"><input type="radio" name="q18" value="A"> A) কুমির</label>
+                <label class="option-label"><input type="radio" name="q18" value="B"> B) গঙ্গার শুশুক</label>
+                <label class="option-label"><input type="radio" name="q18" value="C"> C) তিমি</label>
+                <label class="option-label"><input type="radio" name="q18" value="D"> D) ডলফিন</label>
+            </div>
+        </div>
+
+        <div class="question-block" data-qno="19" data-correct="B">
+            <div class="question-text">19. 'গীতাঞ্জলি' রচয়িতা—</div>
+            <div class="options-group">
+                <label class="option-label"><input type="radio" name="q19" value="A"> A) বঙ্কিমচন্দ্র</label>
+                <label class="option-label"><input type="radio" name="q19" value="B"> B) রবীন্দ্রনাথ ঠাকুর</label>
+                <label class="option-label"><input type="radio" name="q19" value="C"> C) শরৎচন্দ্র</label>
+                <label class="option-label"><input type="radio" name="q19" value="D"> D) বিভূতিভূষণ</label>
+            </div>
+        </div>
+
+        <div class="question-block" data-qno="20" data-correct="A">
+            <div class="question-text">20. 'বন্দে মাতরম্' প্রথম প্রকাশিত হয়—</div>
+            <div class="options-group">
+                <label class="option-label"><input type="radio" name="q20" value="A"> A) আনন্দমঠ</label>
+                <label class="option-label"><input type="radio" name="q20" value="B"> B) দেবী চৌধুরাণী</label>
+                <label class="option-label"><input type="radio" name="q20" value="C"> C) দুর্গেশনন্দিনী</label>
+                <label class="option-label"><input type="radio" name="q20" value="D"> D) কপালকুণ্ডলা</label>
+            </div>
+        </div>
+
+        <div class="question-block" data-qno="21" data-correct="A">
+            <div class="question-text">21. প্লাসির যুদ্ধ হয়—</div>
+            <div class="options-group">
+                <label class="option-label"><input type="radio" name="q21" value="A"> A) 1757</label>
+                <label class="option-label"><input type="radio" name="q21" value="B"> B) 1764</label>
+                <label class="option-label"><input type="radio" name="q21" value="C"> C) 1857</label>
+                <label class="option-label"><input type="radio" name="q21" value="D"> D) 1947</label>
+            </div>
+        </div>
+
+        <div class="question-block" data-qno="22" data-correct="A">
+            <div class="question-text">22. স্থায়ী বন্দোবস্ত চালু করেন—</div>
+            <div class="options-group">
+                <label class="option-label"><input type="radio" name="q22" value="A"> A) কর্নওয়ালিস</label>
+                <label class="option-label"><input type="radio" name="q22" value="B"> B) ওয়ারেন হেস্টিংস</label>
+                <label class="option-label"><input type="radio" name="q22" value="C"> C) ডালহৌসি</label>
+                <label class="option-label"><input type="radio" name="q22" value="D"> D) কার্জন</label>
+            </div>
+        </div>
+
+        <div class="question-block" data-qno="23" data-correct="B">
+            <div class="question-text">23. ভারতের প্রথম উপগ্রহ—</div>
+            <div class="options-group">
+                <label class="option-label"><input type="radio" name="q23" value="A"> A) ভাস্কর</label>
+                <label class="option-label"><input type="radio" name="q23" value="B"> B) আর্যভট্ট</label>
+                <label class="option-label"><input type="radio" name="q23" value="C"> C) INSAT</label>
+                <label class="option-label"><input type="radio" name="q23" value="D"> D) রোহিণী</label>
+            </div>
+        </div>
+
+        <div class="question-block" data-qno="24" data-correct="B">
+            <div class="question-text">24. ISRO প্রতিষ্ঠিত হয়—</div>
+            <div class="options-group">
+                <label class="option-label"><input type="radio" name="q24" value="A"> A) 1962</label>
+                <label class="option-label"><input type="radio" name="q24" value="B"> B) 1969</label>
+                <label class="option-label"><input type="radio" name="q24" value="C"> C) 1972</label>
+                <label class="option-label"><input type="radio" name="q24" value="D"> D) 1980</label>
+            </div>
+        </div>
+
+        <div class="question-block" data-qno="25" data-correct="B">
+            <div class="question-text">25. ভারতের প্রথম লোকসভা নির্বাচন অনুষ্ঠিত হয়—</div>
+            <div class="options-group">
+                <label class="option-label"><input type="radio" name="q25" value="A"> A) 1949</label>
+                <label class="option-label"><input type="radio" name="q25" value="B"> B) 1951-52</label>
+                <label class="option-label"><input type="radio" name="q25" value="C"> C) 1955</label>
+                <label class="option-label"><input type="radio" name="q25" value="D"> D) 1957</label>
+            </div>
+        </div>
+
+        <div class="question-block" data-qno="26" data-correct="A">
+            <div class="question-text">26. পশ্চিমবঙ্গের বৃহত্তম জেলা (আয়তনে)—</div>
+            <div class="options-group">
+                <label class="option-label"><input type="radio" name="q26" value="A"> A) দক্ষিণ ২৪ পরগনা</label>
+                <label class="option-label"><input type="radio" name="q26" value="B"> B) পুরুলিয়া</label>
+                <label class="option-label"><input type="radio" name="q26" value="C"> C) বাঁকুড়া</label>
+                <label class="option-label"><input type="radio" name="q26" value="D"> D) পশ্চিম মেদিনীপুর</label>
+            </div>
+        </div>
+
+        <div class="question-block" data-qno="27" data-correct="B">
+            <div class="question-text">27. দার্জিলিং কোন পাহাড়শ্রেণীর অন্তর্গত?</div>
+            <div class="options-group">
+                <label class="option-label"><input type="radio" name="q27" value="A"> A) আরাবল্লী</label>
+                <label class="option-label"><input type="radio" name="q27" value="B"> B) পূর্ব হিমালয়</label>
+                <label class="option-label"><input type="radio" name="q27" value="C"> C) পশ্চিমঘাট</label>
+                <label class="option-label"><input type="radio" name="q27" value="D"> D) সাতপুরা</label>
+            </div>
+        </div>
+
+        <div class="question-block" data-qno="28" data-correct="B">
+            <div class="question-text">28. ভারতীয় সংবিধানের একাদশ তফসিলে (Eleventh Schedule) মোট কতটি বিষয় পঞ্চায়েতের নিকট ন্যস্ত করা হয়েছে?</div>
+            <div class="options-group">
+                <label class="option-label"><input type="radio" name="q28" value="A"> A) 18টি</label>
+                <label class="option-label"><input type="radio" name="q28" value="B"> B) 29টি</label>
+                <label class="option-label"><input type="radio" name="q28" value="C"> C) 30টি</label>
+                <label class="option-label"><input type="radio" name="q28" value="D"> D) 33টি</label>
+            </div>
+        </div>
+
+        <div class="question-block" data-qno="29" data-correct="A">
+            <div class="question-text">29. মৌলিক कर्तव्य সংযোজিত হয়—</div>
+            <div class="options-group">
+                <label class="option-label"><input type="radio" name="q29" value="A"> A) 42তম সংশোধনী</label>
+                <label class="option-label"><input type="radio" name="q29" value="B"> B) 44তম সংশোধনী</label>
+                <label class="option-label"><input type="radio" name="q29" value="C"> C) 52তম সংশোধনী</label>
+                <label class="option-label"><input type="radio" name="q29" value="D"> D) 61তম সংশোধনী</label>
+            </div>
+        </div>
+
+        <div class="question-block" data-qno="30" data-correct="C">
+            <div class="question-text">30. GST চালু হয়—</div>
+            <div class="options-group">
+                <label class="option-label"><input type="radio" name="q30" value="A"> A) 2015</label>
+                <label class="option-label"><input type="radio" name="q30" value="B"> B) 2016</label>
+                <label class="option-label"><input type="radio" name="q30" value="C"> C) 2017</label>
+                <label class="option-label"><input type="radio" name="q30" value="D"> D) 2018</label>
+            </div>
+        </div>
+
+        <div class="question-block" data-qno="31" data-correct="B">
+            <div class="question-text">31. ভারতের সর্বোচ্চ আদালত—</div>
+            <div class="options-group">
+                <label class="option-label"><input type="radio" name="q31" value="A"> A) হাইকোর্ট</label>
+                <label class="option-label"><input type="radio" name="q31" value="B"> B) সুপ্রিম কোর্ট</label>
+                <label class="option-label"><input type="radio" name="q31" value="C"> C) জেলা আদালত</label>
+                <label class="option-label"><input type="radio" name="q31" value="D"> D) ট্রাইব্যুনাল</label>
+            </div>
+        </div>
+
+        <div class="question-block" data-qno="32" data-correct="D">
+            <div class="question-text">32. পশ্চিমবঙ্গ পঞ্চায়েত আইনের অধীনে গ্রাম পঞ্চায়েতের বাজেট অনুমোদনের ক্ষমতা কার?</div>
+            <div class="options-group">
+                <label class="option-label"><input type="radio" name="q32" value="A"> A) জেলা পরিষদ</label>
+                <label class="option-label"><input type="radio" name="q32" value="B"> B) পঞ্চায়েত সমিতি</label>
+                <label class="option-label"><input type="radio" name="q32" value="C"> C) গ্রাম সভা</label>
+                <label class="option-label"><input type="radio" name="q32" value="D"> D) গ্রাম পঞ্চায়েত</label>
+            </div>
+        </div>
+
+        <div class="question-block" data-qno="33" data-correct="B">
+            <div class="question-text">33. গ্রাম সভার সদস্য কারা?</div>
+            <div class="options-group">
+                <label class="option-label"><input type="radio" name="q33" value="A"> A) শুধুমাত্র পঞ্চায়েত সদস্য</label>
+                <label class="option-label"><input type="radio" name="q33" value="B"> B) গ্রামের সকল প্রাপ্তবয়স্ক ভোটার</label>
+                <label class="option-label"><input type="radio" name="q33" value="C"> C) শুধুমাত্র প্রধান</label>
+                <label class="option-label"><input type="radio" name="q33" value="D"> D) সরকারি কর্মচারী</label>
+            </div>
+        </div>
+
+        <div class="question-block" data-qno="34" data-correct="B">
+            <div class="question-text">34. পঞ্চায়েতের মেয়াদ—</div>
+            <div class="options-group">
+                <label class="option-label"><input type="radio" name="q34" value="A"> A) ৪ বছর</label>
+                <label class="option-label"><input type="radio" name="q34" value="B"> B) ৫ বছর</label>
+                <label class="option-label"><input type="radio" name="q34" value="C"> C) ৬ বছর</label>
+                <label class="option-label"><input type="radio" name="q34" value="D"> D) ৩ বছর</label>
+            </div>
+        </div>
+
+        <div class="question-block" data-qno="35" data-correct="A">
+            <div class="question-text">35. পশ্চিমবঙ্গ পঞ্চায়েত আইন প্রণীত হয়—</div>
+            <div class="options-group">
+                <label class="option-label"><input type="radio" name="q35" value="A"> A) 1973</label>
+                <label class="option-label"><input type="radio" name="q35" value="B"> B) 1978</label>
+                <label class="option-label"><input type="radio" name="q35" value="C"> C) 1993</label>
+                <label class="option-label"><input type="radio" name="q35" value="D"> D) 2005</label>
+            </div>
+        </div>
+
+        <div class="question-block" data-qno="36" data-correct="B">
+            <div class="question-text">36. স্বচ্ছ ভারত মিশন চালু হয়—</div>
+            <div class="options-group">
+                <label class="option-label"><input type="radio" name="q36" value="A"> A) 2012</label>
+                <label class="option-label"><input type="radio" name="q36" value="B"> B) 2014</label>
+                <label class="option-label"><input type="radio" name="q36" value="C"> C) 2016</label>
+                <label class="option-label"><input type="radio" name="q36" value="D"> D) 2018</label>
+            </div>
+        </div>
+
+        <div class="question-block" data-qno="37" data-correct="B">
+            <div class="question-text">37. PMAY-G কোন প্রকল্পের সঙ্গে সম্পর্কিত?</div>
+            <div class="options-group">
+                <label class="option-label"><input type="radio" name="q37" value="A"> A) কৃষি</label>
+                <label class="option-label"><input type="radio" name="q37" value="B"> B) গ্রামীণ আবাসন</label>
+                <label class="option-label"><input type="radio" name="q37" value="C"> C) স্বাস্থ্য</label>
+                <label class="option-label"><input type="radio" name="q37" value="D"> D) শিক্ষা</label>
+            </div>
+        </div>
+
+        <div class="question-block" data-qno="38" data-correct="A">
+            <div class="question-text">38. স্বনির্ভর গোষ্ঠী (SHG)-এর সঙ্গে কোন মিশন সম্পর্কিত?</div>
+            <div class="options-group">
+                <label class="option-label"><input type="radio" name="q38" value="A"> A) NRLM</label>
+                <label class="option-label"><input type="radio" name="q38" value="B"> B) PMGSY</label>
+                <label class="option-label"><input type="radio" name="q38" value="C"> C) PMFBY</label>
+                <label class="option-label"><input type="radio" name="q38" value="D"> D) SBM</label>
+            </div>
+        </div>
+
+        <div class="question-block" data-qno="39" data-correct="B">
+            <div class="question-text">39. PMGSY-এর মূল উদ্দেশ্য—</div>
+            <div class="options-group">
+                <label class="option-label"><input type="radio" name="q39" value="A"> A) আবাসন</label>
+                <label class="option-label"><input type="radio" name="q39" value="B"> B) গ্রামীণ সড়ক নির্মাণ</label>
+                <label class="option-label"><input type="radio" name="q39" value="C"> C) বিদ্যুৎ</label>
+                <label class="option-label"><input type="radio" name="q39" value="D"> D) সেচ</label>
+            </div>
+        </div>
+
+        <div class="question-block" data-qno="40" data-correct="B">
+            <div class="question-text">40. Gram Panchayat Development Plan (GPDP)-এর মূল উদ্দেশ্য—</div>
+            <div class="options-group">
+                <label class="option-label"><input type="radio" name="q40" value="A"> A) সেনা নিয়োগ</label>
+                <label class="option-label"><input type="radio" name="q40" value="B"> B) গ্রামভিত্তিক উন্নয়ন পরিকল্পনা</label>
+                <label class="option-label"><input type="radio" name="q40" value="C"> C) ব্যাংকিং</label>
+                <label class="option-label"><input type="radio" name="q40" value="D"> D) কর আদায়</label>
+            </div>
+        </div>
+
+        <div class="question-block" data-qno="41" data-correct="C">
+            <div class="question-text">41. 5, 10, 20, 40, ?, 160</div>
+            <div class="options-group">
+                <label class="option-label"><input type="radio" name="q41" value="A"> A) 60</label>
+                <label class="option-label"><input type="radio" name="q41" value="B"> B) 70</label>
+                <label class="option-label"><input type="radio" name="q41" value="C"> C) 80</label>
+                <label class="option-label"><input type="radio" name="q41" value="D"> D) 90</label>
+            </div>
+        </div>
+
+        <div class="question-block" data-qno="42" data-correct="A">
+            <div class="question-text">42. যদি BOOK = CPPL হয়, তবে PEN = ?</div>
+            <div class="options-group">
+                <label class="option-label"><input type="radio" name="q42" value="A"> A) QFO</label>
+                <label class="option-label"><input type="radio" name="q42" value="B"> B) QFN</label>
+                <label class="option-label"><input type="radio" name="q42" value="C"> C) PFN</label>
+                <label class="option-label"><input type="radio" name="q42" value="D"> D) RFO</label>
+            </div>
+        </div>
+
+        <div class="question-block" data-qno="43" data-correct="C">
+            <div class="question-text">43. 8 : 64 :: 12 : ?</div>
+            <div class="options-group">
+                <label class="option-label"><input type="radio" name="q43" value="A"> A) 120</label>
+                <label class="option-label"><input type="radio" name="q43" value="B"> B) 132</label>
+                <label class="option-label"><input type="radio" name="q43" value="C"> C) 144</label>
+                <label class="option-label"><input type="radio" name="q43" value="D"> D) 156</label>
+            </div>
+        </div>
+
+        <div class="question-block" data-qno="44" data-correct="B">
+            <div class="question-text">44. Odometer : Distance :: Thermometer : ?</div>
+            <div class="options-group">
+                <label class="option-label"><input type="radio" name="q44" value="A"> A) Heat</label>
+                <label class="option-label"><input type="radio" name="q44" value="B"> B) Temperature</label>
+                <label class="option-label"><input type="radio" name="q44" value="C"> C) Speed</label>
+                <label class="option-label"><input type="radio" name="q44" value="D"> D) Pressure</label>
+            </div>
+        </div>
+
+        <div class="question-block" data-qno="45" data-correct="B">
+            <div class="question-text">45. একটি ঘড়িতে ৩:০০ টায় দুই কাঁটার মধ্যে কোণ কত?</div>
+            <div class="options-group">
+                <label class="option-label"><input type="radio" name="q45" value="A"> A) 60°</label>
+                <label class="option-label"><input type="radio" name="q45" value="B"> B) 90°</label>
+                <label class="option-label"><input type="radio" name="q45" value="C"> C) 75°</label>
+                <label class="option-label"><input type="radio" name="q45" value="D"> D) 120°</label>
+            </div>
+        </div>
+
+        <div class="question-block" data-qno="46" data-correct="A">
+            <div class="question-text">46. যদি SOUTH = HTUOS হয়, তবে EAST = ?</div>
+            <div class="options-group">
+                <label class="option-label"><input type="radio" name="q46" value="A"> A) TSAE</label>
+                <label class="option-label"><input type="radio" name="q46" value="B"> B) EATS</label>
+                <label class="option-label"><input type="radio" name="q46" value="C"> C) AEST</label>
+                <label class="option-label"><input type="radio" name="q46" value="D"> D) ETAS</label>
+            </div>
+        </div>
+
+        <div class="question-block" data-qno="47" data-correct="B">
+            <div class="question-text">47. 3, 6, 11, 18, 27, ?</div>
+            <div class="options-group">
+                <label class="option-label"><input type="radio" name="q47" value="A"> A) 36</label>
+                <label class="option-label"><input type="radio" name="q47" value="B"> B) 38</label>
+                <label class="option-label"><input type="radio" name="q47" value="C"> C) 40</label>
+                <label class="option-label"><input type="radio" name="q47" value="D"> D) 42</label>
+            </div>
+        </div>
+
+        <div class="question-block" data-qno="48" data-correct="A">
+            <div class="question-text">48. A, C, F, J, O, ?</div>
+            <div class="options-group">
+                <label class="option-label"><input type="radio" name="q48" value="A"> A) U</label>
+                <label class="option-label"><input type="radio" name="q48" value="B"> B) V</label>
+                <label class="option-label"><input type="radio" name="q48" value="C"> C) W</label>
+                <label class="option-label"><input type="radio" name="q48" value="D"> D) X</label>
+            </div>
+        </div>
+
+        <div class="question-block" data-qno="49" data-correct="C">
+            <div class="question-text">49. একজন ব্যক্তি উত্তর দিকে 10 মিটার, তারপর পূর্ব দিকে 10 মিটার, তারপর দক্ষিণ দিকে 10 মিটার হাঁটলেন। তিনি শুরুর স্থান থেকে কোন দিকে আছেন?</div>
+            <div class="options-group">
+                <label class="option-label"><input type="radio" name="q49" value="A"> A) উত্তর</label>
+                <label class="option-label"><input type="radio" name="q49" value="B"> B) দক্ষিণ</label>
+                <label class="option-label"><input type="radio" name="q49" value="C"> C) পূর্ব</label>
+                <label class="option-label"><input type="radio" name="q49" value="D"> D) পশ্চিম</label>
+            </div>
+        </div>
+
+        <div class="question-block" data-qno="50" data-correct="C">
+            <div class="question-text">50. যদি 2 = 6, 3 = 12, 4 = 20, তবে 6 = ?</div>
+            <div class="options-group">
+                <label class="option-label"><input type="radio" name="q50" value="A"> A) 30</label>
+                <label class="option-label"><input type="radio" name="q50" value="B"> B) 36</label>
+                <label class="option-label"><input type="radio" name="q50" value="C"> C) 42</label>
+                <label class="option-label"><input type="radio" name="q50" value="D"> D) 48</label>
+            </div>
+        </div>
+
+        <div class="btn-container">
+            <button type="button" class="submit-btn" onclick="calculateResult()">সাবমিট করুন</button>
+        </div>
+    </form>
+
+    <div id="resultBox" class="result-box">
+        <div class="result-title">পরীক্ষার ফলাফল</div>
+        <div class="result-details" id="resultDetails"></div>
+    </div>
+</div>
+
+<script>
+function calculateResult() {
+    const questions = document.querySelectorAll('.question-block');
+    let totalQuestions = questions.length;
+    let correctCount = 0;
+    let wrongCount = 0;
+    let unattemptedCount = 0;
+
+    questions.forEach((qBlock) => {
+        const correctAns = qBlock.getAttribute('data-correct');
+        const qNo = qBlock.getAttribute('data-qno');
+        const selectedRadio = qBlock.querySelector(`input[name="q${qNo}"]:checked`);
+        const allLabels = qBlock.querySelectorAll('.option-label');
+
+        // Reset previous evaluation styles
+        allLabels.forEach(label => {
+            label.classList.remove('correct-ans', 'wrong-ans');
+        });
+
+        // Highlight the true correct answer systematically
+        allLabels.forEach(label => {
+            if (label.querySelector('input').value === correctAns) {
+                label.classList.add('correct-ans');
+            }
+        });
+
+        if (selectedRadio) {
+            const userAns = selectedRadio.value;
+            if (userAns === correctAns) {
+                correctCount++;
+            } else {
+                wrongCount++;
+                // Highlight the user's wrong option choice
+                selectedRadio.parentElement.classList.add('wrong-ans');
+            }
+        } else {
+            unattemptedCount++;
+        }
+    });
+
+    // Score calculations: +1 for correct, -0.25 for wrong
+    let totalScore = (correctCount * 1) - (wrongCount * 0.25);
+
+    // Display total result summary
+    const resultBox = document.getElementById('resultBox');
+    const resultDetails = document.getElementById('resultDetails');
+    
+    resultDetails.innerHTML = `
+        মোট প্রশ্ন: <strong>${totalQuestions}</strong><br>
+        সঠিক উত্তর: <strong style="color: #27ae60;">${correctCount}</strong><br>
+        ভুল উত্তর: <strong style="color: #c0392b;">${wrongCount}</strong><br>
+        অনুত্তরিত প্রশ্ন: <strong>${unattemptedCount}</strong><br>
+        <strong>মোট প্রাপ্ত নম্বর: ${totalScore.toFixed(2)} / ${totalQuestions}</strong>
+    `;
+    
+    resultBox.style.display = 'block';
+    window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+}
+</script>
+
+</body>
+</html>
