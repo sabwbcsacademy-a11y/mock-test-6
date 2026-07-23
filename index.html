@@ -19,10 +19,25 @@
             padding: 30px;
             border-radius: 8px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            position: relative;
         }
         h1 {
             text-align: center;
             color: #2c3e50;
+            margin-top: 40px;
+        }
+        .timer-box {
+            position: fixed;
+            top: 10px;
+            right: 20px;
+            background: #e74c3c;
+            color: white;
+            padding: 10px 20px;
+            font-size: 1.2em;
+            font-weight: bold;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            z-index: 1000;
         }
         .marking-info {
             text-align: center;
@@ -64,7 +79,6 @@
             margin-right: 10px;
         }
         
-        /* Result styles dynamically injected via JS classes */
         .option-label.correct-ans {
             background-color: #d4edda !important;
             border-color: #c3e6cb !important;
@@ -116,8 +130,10 @@
 </head>
 <body>
 
+<div class="timer-box" id="timerDisplay">সময় বাকি: 40:00</div>
+
 <div class="container">
-    <h1>অনলাইন মক টেস্ট</h1>
+    <h1>ICDS,WB PANCHAYAT,WBP MOCK TEST-6</h1>
     <div class="marking-info">
         সঠিক উত্তরের জন্য: <strong>+1</strong> | ভুল উত্তরের জন্য: <strong>-0.25</strong>
     </div>
@@ -315,7 +331,7 @@
         </div>
 
         <div class="question-block" data-qno="20" data-correct="A">
-            <div class="question-text">20. 'বন্দে মাতরম্' প্রথম প্রকাশিত হয়—</div>
+            <div class="question-text">20. 'বন্দে মাতরম' প্রথম প্রকাশিত হয়—</div>
             <div class="options-group">
                 <label class="option-label"><input type="radio" name="q20" value="A"> A) আনন্দমঠ</label>
                 <label class="option-label"><input type="radio" name="q20" value="B"> B) দেবী চৌধুরাণী</label>
@@ -325,7 +341,7 @@
         </div>
 
         <div class="question-block" data-qno="21" data-correct="A">
-            <div class="question-text">21. প্লাসির যুদ্ধ হয়—</div>
+            <div class="question-text">21.পলাশী যুদ্ধ হয়—</div>
             <div class="options-group">
                 <label class="option-label"><input type="radio" name="q21" value="A"> A) 1757</label>
                 <label class="option-label"><input type="radio" name="q21" value="B"> B) 1764</label>
@@ -405,7 +421,7 @@
         </div>
 
         <div class="question-block" data-qno="29" data-correct="A">
-            <div class="question-text">29. মৌলিক कर्तव्य সংযোজিত হয়—</div>
+            <div class="question-text">29. মৌলিক কর্তব্য সংযোজিত হয়—</div>
             <div class="options-group">
                 <label class="option-label"><input type="radio" name="q29" value="A"> A) 42তম সংশোধনী</label>
                 <label class="option-label"><input type="radio" name="q29" value="B"> B) 44তম সংশোধনী</label>
@@ -440,7 +456,7 @@
                 <label class="option-label"><input type="radio" name="q32" value="A"> A) জেলা পরিষদ</label>
                 <label class="option-label"><input type="radio" name="q32" value="B"> B) পঞ্চায়েত সমিতি</label>
                 <label class="option-label"><input type="radio" name="q32" value="C"> C) গ্রাম সভা</label>
-                <label class="option-label"><input type="radio" name="q32" value="D"> D) গ্রাম পঞ্চায়েত</label>
+                <label class="option-label"><input type="radio" name="q32" value="D"> D) gram panchayat</label>
             </div>
         </div>
 
@@ -625,18 +641,66 @@
         </div>
 
         <div class="btn-container">
-            <button type="button" class="submit-btn" onclick="calculateResult()">সাবমিট করুন</button>
+            <button type="button" id="submitBtn" class="submit-btn" onclick="calculateResult(false)">সাবমিট করুন</button>
         </div>
     </form>
 
     <div id="resultBox" class="result-box">
-        <div class="result-title">পরীক্ষার ফলাফল</div>
+        <div class="result-title" id="resultTitle">পরীক্ষার ফলাফল</div>
         <div class="result-details" id="resultDetails"></div>
     </div>
 </div>
 
 <script>
-function calculateResult() {
+let totalSeconds = 40 * 60; // 40 minutes in seconds
+let timerInterval;
+let isSubmitted = false;
+
+function startTimer() {
+    const timerDisplay = document.getElementById('timerDisplay');
+    
+    timerInterval = setInterval(() => {
+        if (totalSeconds <= 0) {
+            clearInterval(timerInterval);
+            if (!isSubmitted) {
+                calculateResult(true); // Trigger auto-submit
+            }
+            return;
+        }
+        
+        totalSeconds--;
+        let minutes = Math.floor(totalSeconds / 60);
+        let seconds = totalSeconds % 60;
+        
+        // Pad numbers with zero if single digit
+        minutes = minutes < 10 ? '0' + minutes : minutes;
+        seconds = seconds < 10 ? '0' + seconds : seconds;
+        
+        timerDisplay.textContent = `সময় বাকি: ${minutes}:${seconds}`;
+        
+        // Turn timer display dark red when less than 2 minutes remain
+        if (totalSeconds < 120) {
+            timerDisplay.style.backgroundColor = '#c0392b';
+        }
+    }, 1000);
+}
+
+function calculateResult(isAutoSubmit = false) {
+    if (isSubmitted) return; // Prevent multiple submissons
+    isSubmitted = true;
+    clearInterval(timerInterval);
+
+    // Disable all inputs so user cannot change choices after submission
+    const allInputs = document.querySelectorAll('input[type="radio"]');
+    allInputs.forEach(input => input.disabled = true);
+    document.getElementById('submitBtn').disabled = true;
+    document.getElementById('submitBtn').style.backgroundColor = '#7f8c8d';
+    document.getElementById('submitBtn').textContent = "পরীক্ষা সম্পন্ন";
+
+    const timerDisplay = document.getElementById('timerDisplay');
+    timerDisplay.textContent = "সময় সমাপ্ত";
+    timerDisplay.style.backgroundColor = '#2c3e50';
+
     const questions = document.querySelectorAll('.question-block');
     let totalQuestions = questions.length;
     let correctCount = 0;
@@ -649,13 +713,8 @@ function calculateResult() {
         const selectedRadio = qBlock.querySelector(`input[name="q${qNo}"]:checked`);
         const allLabels = qBlock.querySelectorAll('.option-label');
 
-        // Reset previous evaluation styles
         allLabels.forEach(label => {
             label.classList.remove('correct-ans', 'wrong-ans');
-        });
-
-        // Highlight the true correct answer systematically
-        allLabels.forEach(label => {
             if (label.querySelector('input').value === correctAns) {
                 label.classList.add('correct-ans');
             }
@@ -667,7 +726,6 @@ function calculateResult() {
                 correctCount++;
             } else {
                 wrongCount++;
-                // Highlight the user's wrong option choice
                 selectedRadio.parentElement.classList.add('wrong-ans');
             }
         } else {
@@ -675,13 +733,20 @@ function calculateResult() {
         }
     });
 
-    // Score calculations: +1 for correct, -0.25 for wrong
     let totalScore = (correctCount * 1) - (wrongCount * 0.25);
 
-    // Display total result summary
     const resultBox = document.getElementById('resultBox');
+    const resultTitle = document.getElementById('resultTitle');
     const resultDetails = document.getElementById('resultDetails');
     
+    if (isAutoSubmit) {
+        resultTitle.textContent = "পরীক্ষার ফলাফল (নির্ধারিত সময় শেষ - অটো সাবমিট করা হয়েছে)";
+        resultTitle.style.color = "#c0392b";
+    } else {
+        resultTitle.textContent = "পরীক্ষার ফলাফল";
+        resultTitle.style.color = "#2c3e50";
+    }
+
     resultDetails.innerHTML = `
         মোট প্রশ্ন: <strong>${totalQuestions}</strong><br>
         সঠিক উত্তর: <strong style="color: #27ae60;">${correctCount}</strong><br>
@@ -693,6 +758,9 @@ function calculateResult() {
     resultBox.style.display = 'block';
     window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
 }
+
+// Start countdown automatically on page load
+window.onload = startTimer;
 </script>
 
 </body>
